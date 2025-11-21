@@ -2,12 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import EventDetails from './pages/EventDetails.jsx';
+import AddEvent from './pages/AddEvent.jsx';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
+
+const router = createBrowserRouter([
+  { path: "/", element: <App /> },
+  { path: "/event/:id", element: <EventDetails /> },
+  { path: "/add", element: <AddEvent /> }
+])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
