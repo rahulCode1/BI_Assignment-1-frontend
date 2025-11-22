@@ -20,22 +20,26 @@ const AddEvent = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     try {
-      const res = await fetch(`http://localhost:80/event`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      setLoading(true);
+      const res = await fetch(
+        `https://bi-assignment-1-backend-five.vercel.app/event`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!res.ok) {
         throw "Error occurred while adding new error.";
       }
 
       const data = await res.json();
-      setLoading(true);
+      setLoading(false);
+      
       if (data) {
         setFormData(initialState);
         setMessage("New Event added successfully.");

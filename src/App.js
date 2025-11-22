@@ -11,7 +11,7 @@ import { useState } from 'react';
 function App() {
   const [eventType, setEventType] = useState("All")
   const [searchText, setSearchText] = useState("")
-  const { data, error, loading } = useFetch('http://localhost:80/events')
+  const { data, error, loading } = useFetch('https://bi-assignment-1-backend-five.vercel.app/events')
   const events = data?.events
   const filteredEvents = eventType === "All" ? events : events && events.length > 0 && events.filter((event) => event.type === eventType)
 
