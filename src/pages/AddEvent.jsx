@@ -70,7 +70,7 @@ const AddEvent = () => {
     <>
       <Header />
       <main className="container py-3">
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} className="p-3">
           <label htmlFor="title" className="form-label">
             Title:
           </label>
@@ -282,7 +282,8 @@ const AddEvent = () => {
               </label>
             </div>
           </div>
-
+          <br />
+          <br />
           <button className="btn btn-primary" type="submit">
             {loading ? "Eventing adding..." : "Add event"}
           </button>

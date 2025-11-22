@@ -71,7 +71,18 @@ function App() {
                 <Link to={`/event/${event._id}`} className='text-decoration-none text-reset'>
                   <div className='card'>
 
-                    <img className='img-fluid object-fit-cover rounded w-100' style={{maxWidth: '500px', maxHeight: '400px', }} src={event.image} />
+                    <img
+                      src={event.image}
+                      className="img-fluid rounded"
+                      style={{
+                        width: "100%",        
+                        maxWidth: "500px",     
+                        maxHeight: "300px",     
+                        height: "auto",          
+                        objectFit: "cover"       
+                      }}
+                    />
+
                     <div className='card-img-overlay'>
                       <p><span className='badge text-bg-light  p-2'>{event.type} Event </span></p>
                     </div>
