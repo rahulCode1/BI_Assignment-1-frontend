@@ -15,8 +15,27 @@ function App() {
   const events = data?.events
   const filteredEvents = eventType === "All" ? events : events && events.length > 0 && events.filter((event) => event.type === eventType)
 
-  const searchEvent = filteredEvents && filteredEvents.length > 0 && filteredEvents.filter(event => event.title.toLowerCase().includes(searchText.toLowerCase()) || event.details.toLowerCase().includes(searchText.toLowerCase()))
-  console.log(searchEvent)
+  const searchEvent = filteredEvents &&
+    filteredEvents.length > 0 &&
+    filteredEvents.filter(event =>
+      event.title.toLowerCase().includes(searchText.toLowerCase()) ||
+      event.details.toLowerCase().includes(searchText.toLowerCase()) ||
+      event.tags.some(tag => tag.toLowerCase().includes(searchText.toLowerCase()))
+    )
+
+  console.log(events)
+
+  const fromatDate = date => {
+    return new Date(date).toLocaleString("en-US", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    })
+  }
 
 
   const handleEventFilter = (e) => {
@@ -52,12 +71,12 @@ function App() {
                 <Link to={`/event/${event._id}`} className='text-decoration-none text-reset'>
                   <div className='card'>
 
-                    <img className='img-fluid object-fit-cover rounded' src={event.image} />
+                    <img className='img-fluid object-fit-cover rounded w-100' style={{maxWidth: '500px', maxHeight: '400px', }} src={event.image} />
                     <div className='card-img-overlay'>
                       <p><span className='badge text-bg-light  p-2'>{event.type} Event </span></p>
                     </div>
                   </div>
-                  <p className='text-secondary'>{event.date}</p>
+                  <p className='text-secondary'>{fromatDate(event.date)}</p>
                   <h3>{event.title}</h3>
                 </Link>
               </div>) : <p>No events found</p>}

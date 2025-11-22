@@ -9,6 +9,7 @@ const AddEvent = () => {
     type: "",
     department: "",
     image: "",
+    tags: [],
   };
   const [formData, setFormData] = useState(initialState);
   const [message, setMessage] = useState("");
@@ -17,6 +18,22 @@ const AddEvent = () => {
   const handleOnChange = (e) => {
     setFormData((prevStat) => ({ ...prevStat, [e.target.id]: e.target.value }));
   };
+
+  const handleCheckbox = (e) => {
+    const { value } = e.target;
+    setFormData((prevStat) => {
+      if (prevStat.tags.includes(value)) {
+        return {
+          ...prevStat,
+          tags: prevStat.tags.filter((tag) => tag !== value),
+        };
+      } else {
+        return { ...prevStat, tags: [...prevStat.tags, value] };
+      }
+    });
+  };
+
+  console.log(formData);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +56,7 @@ const AddEvent = () => {
 
       const data = await res.json();
       setLoading(false);
-      
+
       if (data) {
         setFormData(initialState);
         setMessage("New Event added successfully.");
@@ -149,6 +166,123 @@ const AddEvent = () => {
           </select>
 
           <br />
+
+          <label className="form-label">Tags:</label>
+
+          <div className="d-flex flex-wrap gap-3">
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="Marketing"
+                id="marketing"
+                onChange={handleCheckbox}
+                checked={formData.tags.includes("Marketing")}
+              />
+              <label className="form-check-label" htmlFor="marketing">
+                Marketing
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="Digital"
+                id="digital"
+                onChange={handleCheckbox}
+                checked={formData.tags.includes("Digital")}
+              />
+              <label className="form-check-label" htmlFor="digital">
+                Digital
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="Sales"
+                id="sales"
+                onChange={handleCheckbox}
+                checked={formData.tags.includes("Sales")}
+              />
+              <label className="form-check-label" htmlFor="sales">
+                Sales
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="Finance"
+                id="finance"
+                onChange={handleCheckbox}
+                checked={formData.tags.includes("Finance")}
+              />
+              <label className="form-check-label" htmlFor="finance">
+                Finance
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="HR"
+                id="hr"
+                onChange={handleCheckbox}
+                checked={formData.tags.includes("HR")}
+              />
+              <label className="form-check-label" htmlFor="hr">
+                HR
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="Design"
+                id="design"
+                onChange={handleCheckbox}
+                checked={formData.tags.includes("Design")}
+              />
+              <label className="form-check-label" htmlFor="design">
+                Design
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="Tech"
+                id="tech"
+                onChange={handleCheckbox}
+                checked={formData.tags.includes("Tech")}
+              />
+              <label className="form-check-label" htmlFor="tech">
+                Tech
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value="Support"
+                id="support"
+                onChange={handleCheckbox}
+                checked={formData.tags.includes("Support")}
+              />
+              <label className="form-check-label" htmlFor="support">
+                Support
+              </label>
+            </div>
+          </div>
+
           <button className="btn btn-primary" type="submit">
             {loading ? "Eventing adding..." : "Add event"}
           </button>
