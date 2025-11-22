@@ -12,7 +12,7 @@ const AddEvent = () => {
   };
   const [formData, setFormData] = useState(initialState);
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleOnChange = (e) => {
     setFormData((prevStat) => ({ ...prevStat, [e.target.id]: e.target.value }));
@@ -20,25 +20,22 @@ const AddEvent = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await fetch(
-        `https://bi-assignment-1-backend-lilac.vercel.app/event`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch(`http://localhost:80/event`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (!res.ok) {
         throw "Error occurred while adding new error.";
       }
 
       const data = await res.json();
-      setLoading(true)
+      setLoading(true);
       if (data) {
         setFormData(initialState);
         setMessage("New Event added successfully.");
@@ -149,7 +146,7 @@ const AddEvent = () => {
 
           <br />
           <button className="btn btn-primary" type="submit">
-            {loading ? "Eventing adding...": "Add event"}
+            {loading ? "Eventing adding..." : "Add event"}
           </button>
         </form>
         <p>{message}</p>

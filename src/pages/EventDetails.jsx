@@ -5,7 +5,7 @@ import useFetch from "../useFetch";
 const EventDetails = () => {
   const eventId = useParams().id;
   const { data, error, loading } = useFetch(
-    `https://bi-assignment-1-backend-lilac.vercel.app/events/${eventId}`
+    `http://localhost:80/events/${eventId}`
   );
   const event = data?.event;
 

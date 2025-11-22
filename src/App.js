@@ -10,10 +10,14 @@ import { useState } from 'react';
 
 function App() {
   const [eventType, setEventType] = useState("All")
-  const { data, error, loading } = useFetch('https://bi-assignment-1-backend-lilac.vercel.app/events')
+  const [searchText, setSearchText] = useState("")
+  const { data, error, loading } = useFetch('http://localhost:80/events')
   const events = data?.events
-  const filteredEvents = eventType === "All" ? events : events.filter((event) => event.type === eventType)
-  console.log(filteredEvents)
+  const filteredEvents = eventType === "All" ? events : events && events.length > 0 && events.filter((event) => event.type === eventType)
+
+  const searchEvent = filteredEvents && filteredEvents.length > 0 && filteredEvents.filter(event => event.title.toLowerCase().includes(searchText.toLowerCase()) || event.details.toLowerCase().includes(searchText.toLowerCase()))
+  console.log(searchEvent)
+
 
   const handleEventFilter = (e) => {
 
@@ -22,7 +26,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header onSearch={setSearchText} />
 
       <main className=' py-3 bg-light '>
         <div className='container min-vh-100 border-top'>
@@ -44,7 +48,7 @@ function App() {
           <div>
             <div className='row py-3'>
 
-              {loading ? <p>Loading...</p> : error ? <p>Error occurred.</p> : filteredEvents ? filteredEvents.length > 0 && filteredEvents.map((event) => <div className='col-md-4 mb-4' key={event._id}>
+              {loading ? <p>Loading...</p> : error ? <p>Error occurred.</p> : searchEvent ? searchEvent.length > 0 && searchEvent.map((event) => <div className='col-md-4 mb-4' key={event._id}>
                 <Link to={`/event/${event._id}`} className='text-decoration-none text-reset'>
                   <div className='card'>
 
@@ -62,7 +66,7 @@ function App() {
           </div>
 
 
-     
+
         </div>
       </main>
     </>
